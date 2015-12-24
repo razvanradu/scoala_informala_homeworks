@@ -65,8 +65,8 @@ public class CarWash {
 	 * @param car A type of {@link Car} ({@link Logan}, {@link Duster}, {@link Astra}, {@link Insignia})
 	 */
 	public void standInLine(Car car){
-		if ((car instanceof Logan) || (car instanceof Duster) || (car instanceof Astra) || (car instanceof Insignia)) {		
-		this.carStand.add(car);
+		if ((!this.carStand.contains(car)) && ((car instanceof Logan) || (car instanceof Duster) || (car instanceof Astra) || (car instanceof Insignia))) {		
+			this.carStand.add(car);
 		}
 		else { 
 			System.out.println("Invalid car type " + car + " not added to list");

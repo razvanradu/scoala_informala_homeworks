@@ -13,13 +13,13 @@ import java.util.HashMap;
  */
 public class CarInventory {
 	int hashCode;
-	private HashMap<Integer , Car> carInventory = new HashMap<>();
+	private HashMap<String , Car> carInventory = new HashMap<>();
 	
 	/**
 	 * Default constructor, creating an empty instance.
 	 */
 	public CarInventory() {
-		carInventory.clear();
+		
 	}
 
 	/**
@@ -30,9 +30,9 @@ public class CarInventory {
 	 * @param car A type of {@link Car} ({@link Logan}, {@link Duster}, {@link Astra}, {@link Insignia})
 	 */
 	public void addCar(Car car) {
-		if ((car instanceof Logan) || (car instanceof Duster) || (car instanceof Astra) || (car instanceof Insignia)) {
-			Integer code = car.hashCode();
-			carInventory.put(code, car);
+		if ((!this.carInventory.containsKey(car.chassisNumber)) && ((car instanceof Logan) || (car instanceof Duster) || (car instanceof Astra) || (car instanceof Insignia))) {
+			
+			carInventory.put(car.chassisNumber, car);
 		}
 		else { 
 			System.out.println("Invalid car type " + car + " not added to list");
@@ -67,17 +67,17 @@ public class CarInventory {
 	 * @param chassis {@link String} representing a chassis number which is used to identify a Car object
 	 */
 	public Car findCar(String chassis) {
-		Integer result = 0;
+		String result=null;
 		
-		Set<Integer> keySet = this.carInventory.keySet();
-		Iterator<Integer> keySetIterator = keySet.iterator();
+		Set<String> keySet = this.carInventory.keySet();
+		Iterator<String> keySetIterator = keySet.iterator();
 		while (keySetIterator.hasNext()) {
-		    Integer key = keySetIterator.next();
-		    if (this.carInventory.get(key).chassisNumber.equalsIgnoreCase(chassis)){
+		    String key = keySetIterator.next();
+		    if (key.equalsIgnoreCase(chassis)){
 		    	result = key;
 		    }
 		}
-		if (result != 0) {
+		if (result != null) {
 			return this.carInventory.get(result);
 		}
 		else {
@@ -101,20 +101,20 @@ public class CarInventory {
 		// First determine the minimum consumption of the list, by using the consumption in the first gear
 		ArrayList<Car> newlist = new ArrayList<Car>();
 		
-		Set<Integer> keySet = this.carInventory.keySet();
-		Iterator<Integer> keySetIterator = keySet.iterator();
+		Set<String> keySet = this.carInventory.keySet();
+		Iterator<String> keySetIterator = keySet.iterator();
 		
 		while (keySetIterator.hasNext()) {
-		    Integer key = keySetIterator.next();
+		    String key = keySetIterator.next();
 		    if (this.carInventory.get(key).getConsumptionPerGear(1,100) < minimumConsumption){
 		    	minimumConsumption = this.carInventory.get(key).getConsumptionPerGear(1,100);
 		    }
 		}
 		keySetIterator.remove();
 		// Searching for the cars which hold the minimum consumption
-		Iterator<Integer> keySetIterator2 = keySet.iterator();
+		Iterator<String> keySetIterator2 = keySet.iterator();
 		while (keySetIterator2.hasNext()) {
-		    Integer key = keySetIterator2.next();
+		    String key = keySetIterator2.next();
 		    if (this.carInventory.get(key).getConsumptionPerGear(1,100) == minimumConsumption){
 		    	newlist.add(this.carInventory.get(key));
 		    }
@@ -137,7 +137,7 @@ public class CarInventory {
 		ci.addCar(car3);
 		Duster car4 = new Duster(28 , "Whwh6jugehr");
 		ci.addCar(car4);
-		Astra car5 = new Astra(30 , "4hgdsaobia");
+		Astra car5 = new Astra(30 , "WOLOnjuge759");
 		ci.addCar(car5);
 		// ci.printList();
 		//Car car2 = ci.findCar(chassisNumber);
